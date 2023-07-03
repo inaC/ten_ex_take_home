@@ -1,4 +1,8 @@
 defmodule TenExTakeHomeWeb.Telemetry do
+  @moduledoc """
+  Provides telemetry metrics.
+  """
+
   use Supervisor
   import Telemetry.Metrics
 
