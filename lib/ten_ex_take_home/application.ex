@@ -16,6 +16,7 @@ defmodule TenExTakeHome.Application do
       {Phoenix.PubSub, name: TenExTakeHome.PubSub},
       # Start Finch
       {Finch, name: TenExTakeHome.Finch},
+      {TenExTakeHome.Cache, Application.get_env(:ten_ex_take_home, :marvel_characters_cache)},
       # Start the Endpoint (http/https)
       TenExTakeHomeWeb.Endpoint
       # Start a worker by calling: TenExTakeHome.Worker.start_link(arg)
