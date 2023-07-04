@@ -51,7 +51,8 @@ defmodule TenExTakeHome.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:httpoison, "~> 2.0"},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:hammox, "~> 0.7", only: :test}
     ]
   end
 
