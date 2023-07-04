@@ -31,3 +31,7 @@ config :logger, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :ten_ex_take_home, :marvel_api,
+  public_key: "public_key",
+  private_key: "private_key"
