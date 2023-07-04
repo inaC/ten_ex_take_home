@@ -1,0 +1,7 @@
+<section>
+  <h1>Marvel characters</h1>
+  <p><%= length(@characters) %> characters found</p>
+  <.list>
+    <:item :for={character <- @characters} title={character["id"]}><%= character["name"] %></:item>
+  </.list>
+</section>
