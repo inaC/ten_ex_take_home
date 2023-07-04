@@ -31,6 +31,20 @@ defmodule TenExTakeHome.MarvelTest do
 
       assert [] = list_characters()
     end
+
+    test "returns cached characters" do
+      expect(TenExTakeHome.MockHttpClient, :get, fn _url, _header, _options ->
+        {:ok, characters_success_response()}
+      end)
+      |> expect(:get, 0, fn _url, _header, _options ->
+        {:error, %HTTPoison.Error{reason: "some error"}}
+      end)
+
+      characters = list_characters()
+      characters_cached = list_characters()
+
+      assert characters_cached == characters
+    end
   end
 
   defp characters_success_response do

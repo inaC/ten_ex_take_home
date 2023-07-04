@@ -3,6 +3,9 @@ defmodule TenExTakeHome.Marvel do
   Marvel domain.
   """
 
+  @characters_cache Application.compile_env(:ten_ex_take_home, :marvel_characters_cache)
+
+  alias TenExTakeHome.Cache
   alias TenExTakeHome.Marvel.Client
 
   @doc """
@@ -96,9 +99,29 @@ defmodule TenExTakeHome.Marvel do
 
   """
   def list_characters do
-    case Client.list_characters() do
-      {:ok, response} -> response["data"]["results"]
+    case do_list_characters() do
+      {:ok, characters} -> characters
       _error -> []
     end
+  end
+
+  defp do_list_characters do
+    case Cache.all_values(@characters_cache) do
+      [] -> add_characters(Client.list_characters())
+      characters -> {:ok, characters}
+    end
+  end
+
+  defp add_characters({:error, _reason} = error), do: error
+
+  defp add_characters({:ok, response}) do
+    characters = response["data"]["results"]
+    Enum.each(characters, &add_character/1)
+
+    {:ok, characters}
+  end
+
+  defp add_character(character) do
+    Cache.insert(@characters_cache, character["id"], character)
   end
 end
